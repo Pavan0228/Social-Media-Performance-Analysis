@@ -16,7 +16,9 @@ const generateAccessTokenAndRefreshToken = async (userId) => {
         return { accessToken, refreshToken };
     } catch (error) {
         return res.status(500).json({
-            message: "Something went wrong while generating referesh and access token",
+            success: false,
+            message: "Authentication token generation failed. Please try again.",
+            error: "Internal server error during token generation"
         });
     }
 };
@@ -31,32 +33,58 @@ const registerUser = asyncHandler(async (req, res) => {
         !password?.trim() ||
         !username?.trim()
     ) {
-        return res.status(400).json({ message: "All fields are required" });
+        return res.status(400).json({
+            success: false,
+            message: "Registration failed. Please provide all required information.",
+            error: "Missing required fields: Full Name, Email, Password, and Username are mandatory"
+        });
     }
 
     // Check if user already exists
     const userExists = await User.findOne({ $or: [{ email }, { username }] });
 
     if (userExists) {
-        return res.status(400).json({ message: "User already exists" });
+        return res.status(409).json({
+            success: false,
+            message: "Registration failed. Account already exists.",
+            error: "An account with this email or username is already registered"
+        });
     }
 
     // Create the new user
     const user = await User.create({ fullName, email, password, username });
 
     if (!user) {
-        return res.status(400).json({ message: "User registration failed" });
+        return res.status(400).json({
+            success: false,
+            message: "Registration failed. Please try again.",
+            error: "User creation unsuccessful"
+        });
     }
+
+    // Generate access token and refresh token
+    const { accessToken, refreshToken } = await generateAccessTokenAndRefreshToken(user._id);
 
     // Remove sensitive fields before sending response
     const userData = user.toObject();
     delete userData.password;
     delete userData.refreshToken;
 
-    res.status(201).json({
-        message: "User registered successfully",
-        user: userData,
-    });
+    const options = {
+        httpOnly: true,
+        secure: true,
+    };
+
+    return res
+        .status(201)
+        .cookie("refreshToken", refreshToken, options)
+        .cookie("accessToken", accessToken, options)
+        .json({
+            success: true,
+            message: "Registration successful. Welcome to our platform!",
+            user: userData,
+            accessToken,
+        });
 });
 
 const loginUser = asyncHandler(async (req, res) => {
@@ -64,7 +92,11 @@ const loginUser = asyncHandler(async (req, res) => {
 
     // Check if all fields are provided
     if ((!email && !username) || !password) {
-        return res.status(400).json({ message: "All fields are required" });
+        return res.status(400).json({
+            success: false,
+            message: "Login failed. Please provide all required information.",
+            error: "Missing credentials. Please provide either email or username, and password"
+        });
     }
 
     // Find user by email or username
@@ -72,12 +104,20 @@ const loginUser = asyncHandler(async (req, res) => {
     if (email) {
         user = await User.findOne({ email });
         if (!user) {
-            return res.status(404).json({ message: "Email not found" });
+            return res.status(404).json({
+                success: false,
+                message: "Login failed. Account not found.",
+                error: "No account found with this email address"
+            });
         }
     } else if (username) {
         user = await User.findOne({ username });
         if (!user) {
-            return res.status(404).json({ message: "Username not found" });
+            return res.status(404).json({
+                success: false,
+                message: "Login failed. Account not found.",
+                error: "No account found with this username"
+            });
         }
     }
 
@@ -85,7 +125,11 @@ const loginUser = asyncHandler(async (req, res) => {
     const isPasswordCorrect = await user.checkPassword(password);
 
     if (!isPasswordCorrect) {
-        return res.status(401).json({ message: "Invalid password" });
+        return res.status(401).json({
+            success: false,
+            message: "Login failed. Invalid credentials.",
+            error: "Incorrect password provided"
+        });
     }
 
     // Generate access token and refresh token
@@ -107,12 +151,12 @@ const loginUser = asyncHandler(async (req, res) => {
         .cookie("refreshToken", refreshToken, options)
         .cookie("accessToken", accessToken, options)
         .json({
-            message: "User logged in successfully",
+            success: true,
+            message: "Login successful. Welcome back!",
             user: userData,
             accessToken,
         });
 });
-
 
 const logoutUser = asyncHandler(async (req, res) => {
     await User.findByIdAndUpdate(
@@ -137,7 +181,8 @@ const logoutUser = asyncHandler(async (req, res) => {
         .clearCookie("refreshToken", options)
         .clearCookie("accessToken", options)
         .json({
-            message: "User logged out successfully",
+            success: true,
+            message: "Logout successful. See you again soon!",
         });
 });
 

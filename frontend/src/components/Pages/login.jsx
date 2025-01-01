@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 import { Brain, BarChart2, Share2, ChevronRight, Mail, Lock } from "lucide-react";
 import { useState } from "react";
+import axios from "axios"; // Corrected import
+import { toast } from "react-toastify";
+import Cookies from "js-cookie";
+
 
 const Login = () => {
     const FloatingMessage = ({ icon: Icon, color, className }) => (
@@ -14,8 +18,27 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        try {
+            const response = await axios.post("http://localhost:3000/api/v1/auth/login", {
+                email,
+                password,
+                username: email,
+            });
+
+            const { accessToken } = response.data;
+
+            Cookies.set("accessToken", accessToken, { expires: 1 });
+
+            toast.success("Login successful!", {
+                position: "top-right",
+            });
+        } catch (error) {
+            toast.error( error.response?.data?.message ||  "Login failed. Please check your credentials.", {
+                position: "top-right",
+            });
+        }
     };
 
     return (
@@ -78,8 +101,8 @@ const Login = () => {
                             <div className="relative">
                                 <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500" />
                                 <input
-                                    type="email"
-                                    placeholder="Email Address"
+                                    type="text"
+                                    placeholder="Email Address or Username"
                                     className="w-full pl-12 pr-4 py-3 bg-gray-800/50 text-gray-100 border border-cyan-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}

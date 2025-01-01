@@ -1,12 +1,16 @@
 import { Link } from "react-router-dom";
-import { Brain, BarChart, Search, ChevronRight, Mail, Lock, User, Sparkles, Network } from "lucide-react";
+import { Brain, BarChart, Search, ChevronRight, Mail, Lock, UserCircle, User, AtSign, Sparkles, Network } from "lucide-react";
 import { useState } from "react";
+import { toast } from "react-toastify";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const Signup = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [fullName, setFullName] = useState("");
+    const [username, setUsername] = useState("");
 
     const FloatingMessage = ({ icon: Icon, color, className }) => (
         <div className={`absolute ${className} animate-bounce opacity-20`}>
@@ -16,8 +20,35 @@ const Signup = () => {
         </div>
     );
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (password !== confirmPassword) {
+            toast.error("Passwords do not match!", {
+                position: "top-right",
+            });
+            return;
+        }
+
+        try {
+            const response = await axios.post("http://localhost:3000/api/v1/auth/register", {
+                email,
+                password,
+                fullName,
+                username
+            });
+            const { accessToken } = response.data;
+
+            Cookies.set("accessToken", accessToken, { expires: 1 });
+
+            toast.success("Login successful!", {
+                position: "top-right",
+            });
+        } catch (error) {
+            toast.error( error.response?.data?.message ||  "Login failed. Please check your credentials.", {
+                position: "top-right",
+            });
+        }
     };
 
     return (
@@ -78,13 +109,27 @@ const Signup = () => {
                     <form className="space-y-5" onSubmit={handleSubmit}>
                         <div className="transform transition-all duration-300 hover:scale-[1.02]">
                             <div className="relative">
-                                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500" />
+                                <UserCircle className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500" />
                                 <input
                                     type="text"
                                     placeholder="Full Name"
                                     className="w-full pl-12 pr-4 py-3 bg-gray-800/50 text-gray-100 border border-cyan-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
                                     value={fullName}
                                     onChange={(e) => setFullName(e.target.value)}
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <div className="transform transition-all duration-300 hover:scale-[1.02]">
+                            <div className="relative">
+                                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500" />
+                                <input
+                                    type="text"
+                                    placeholder="User Name"
+                                    className="w-full pl-12 pr-4 py-3 bg-gray-800/50 text-gray-100 border border-cyan-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
                                     required
                                 />
                             </div>
@@ -154,4 +199,4 @@ const Signup = () => {
     );
 };
 
-export default Signup;
+export default Signup
