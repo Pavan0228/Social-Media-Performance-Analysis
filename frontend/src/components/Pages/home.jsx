@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { Link } from 'react-router-dom';
 import { Line } from 'react-chartjs-2';
 import {
@@ -12,18 +11,6 @@ import {
 } from 'chart.js';
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend);
-
-// Add these keyframes to your global CSS or create them inline
-const fadeInAnimation = {
-  '@keyframes fadeIn': {
-    '0%': { opacity: 0 },
-    '100%': { opacity: 1 },
-  },
-  '@keyframes slideUp': {
-    '0%': { transform: 'translateY(20px)', opacity: 0 },
-    '100%': { transform: 'translateY(0)', opacity: 1 },
-  }
-};
 
 const Home = () => {
   // Temporary default data for the graph
@@ -99,14 +86,15 @@ const Home = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center p-8 animate-[fadeIn_0.6s_ease-in-out]">
-      <div className="bg-slate-800/30 p-12 rounded-3xl shadow-2xl backdrop-blur-sm border border-slate-700/50 w-full max-w-4xl min-h-[80vh] animate-[slideUp_0.6s_ease-out]">
-        <h1 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 text-center mb-12 animate-[fadeIn_0.8s_ease-in-out]">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center p-8">
+      <div className="bg-slate-800/30 p-12 rounded-3xl shadow-2xl backdrop-blur-sm border border-slate-700/50 w-full max-w-4xl min-h-[80vh]">
+        <h1 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 text-center mb-12 animate-fade-in">
           Social Media Analyzer
         </h1>
 
+        {/* Updated button grid layout with new colors and subtle animations */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          {buttons.map((button, index) => (
+          {buttons.map((button) => (
             <Link
               key={button.name}
               to={button.link}
@@ -121,23 +109,21 @@ const Home = () => {
                 hover:shadow-xl hover:scale-[1.02] 
                 active:scale-[0.98]
                 focus:outline-none focus:ring-2 focus:ring-opacity-50
-                animate-[slideUp_0.4s_ease-out]
               `}
-              style={{ animationDelay: `${index * 100}ms` }}
             >
               {button.name}
             </Link>
           ))}
         </div>
 
-        <div className="mt-8 transform transition-all duration-300 hover:scale-[1.01] animate-[fadeIn_1s_ease-in-out]">
+        <div className="mt-8 transform transition-all duration-300 hover:scale-[1.01]">
           <h2 className="text-lg font-medium text-blue-100 text-center mb-4">User Engagement Graph</h2>
           <div className="bg-slate-700/40 rounded-lg p-4 border border-slate-600/50 shadow-lg">
             <Line data={chartData} options={chartOptions} />
           </div>
         </div>
 
-        <div className="mt-8 space-y-4 animate-[fadeIn_1.2s_ease-in-out]">
+        <div className="mt-8 space-y-4">
           <h2 className="text-lg font-medium text-blue-100 text-center">Quick Actions</h2>
           <div className="grid grid-cols-2 gap-4">
             <button className="py-2 px-4 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium rounded-lg shadow-md transition-all duration-200 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]">

@@ -1,32 +1,23 @@
-/* eslint-disable no-unused-vars */
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import './App.css';
 import Login from './components/Pages/login';
 import Signup from './components/Pages/signup';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/Pages/home';
 import Analyzer from './components/Pages/Analyzer';
-
+import VideoTranscript from './components/Pages/vediotranscript';
 
 function App() {
-
   return (
-    <>
-    <div>
     <Router>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/home" element={<Home/>}/>
-        <Route path="/analyzer" element={<Analyzer/>}/>
+        <Route exact path="/" element={<Login />} />
+        <Route exact path="/signup" element={<Signup />} />
+        <Route exact path="/home" element={<Home />} />
+        <Route exact path="/analyzer" element={<Analyzer />} />
+        <Route exact path="/transcript" element={<VideoTranscript />} />
       </Routes>
     </Router>
-    </div>
-
-    </>
-  )
+  );
 }
 
-export default App
+export default App;
