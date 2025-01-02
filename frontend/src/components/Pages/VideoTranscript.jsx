@@ -1,8 +1,8 @@
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Video, FileText } from "lucide-react";
+import { ChevronRight, Star, AlertTriangle, Lightbulb } from "lucide-react";
 import { toast } from "react-toastify";
-
 
 const VideoTranscript = () => {
     const [file, setFile] = useState(null);
@@ -13,36 +13,53 @@ const VideoTranscript = () => {
     const [transcriptionText, setTranscriptionText] = useState("");
     const fileInputRef = useRef(null);
 
-    const formatOutput = (responseData) => {
+    const formatOutput = ({ responseData }) => {
         if (!responseData) return null;
 
         try {
             const message =
                 responseData.data.outputs[0].outputs[0].results.message.text;
 
+            const getIcon = (title) => {
+                switch (title.toLowerCase()) {
+                    case "strengths":
+                        return <Star className="w-6 h-6 text-yellow-400" />;
+                    case "weaknesses":
+                        return (
+                            <AlertTriangle className="w-6 h-6 text-red-400" />
+                        );
+                    case "suggestions":
+                        return <Lightbulb className="w-6 h-6 text-blue-400" />;
+                    default:
+                        return (
+                            <ChevronRight className="w-6 h-6 text-green-400" />
+                        );
+                }
+            };
+
             return (
-                <div className="space-y-6">
+                <div className="space-y-8 p-6 bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl shadow-2xl">
                     {message.split("\n\n").map((section, index) => {
                         if (section.trim()) {
                             const [title, ...content] = section.split("\n");
                             return (
                                 <div
                                     key={index}
-                                    className="bg-slate-800/40 rounded-xl p-4 transform transition-all duration-300 hover:scale-[1.01] hover:bg-slate-800/60 border border-slate-700/50"
+                                    className="bg-gray-800/50 rounded-xl p-6 transform transition-all duration-300 hover:scale-[1.02] hover:bg-gray-800/70 border border-gray-700/50 shadow-lg"
                                 >
-                                    <h4 className="text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 mb-3 flex items-center">
-                                        <span className="text-emerald-400 mr-2">
-                                            ●
+                                    <h4 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 mb-4 flex items-center">
+                                        {getIcon(title.trim())}
+                                        <span className="ml-2">
+                                            {title.trim()}
                                         </span>
-                                        {title.trim()}
                                     </h4>
-                                    <div className="space-y-2">
+                                    <div className="space-y-3">
                                         {content.map((line, i) => (
                                             <div
                                                 key={i}
-                                                className="flex items-start space-x-2 text-slate-300 p-2 hover:bg-slate-700/30 rounded-lg transition-colors duration-200"
+                                                className="flex items-start space-x-3 text-gray-300 p-3 hover:bg-gray-700/30 rounded-lg transition-all duration-200 group"
                                             >
-                                                <span className="text-blue-400 text-lg">
+                                                <span className="text-purple-400 text-lg group-hover:text-pink-400 transition-colors duration-200">
                                                     {line
                                                         .trim()
                                                         .startsWith("1.") ||
@@ -50,7 +67,7 @@ const VideoTranscript = () => {
                                                         ? "•"
                                                         : ""}
                                                 </span>
-                                                <span className="flex-1">
+                                                <span className="flex-1 group-hover:text-gray-100 transition-colors duration-200">
                                                     {line.trim()}
                                                 </span>
                                             </div>
@@ -65,7 +82,11 @@ const VideoTranscript = () => {
             );
         } catch (error) {
             console.error("Error formatting output:", error);
-            return <p className="text-red-400">Error formatting response</p>;
+            return (
+                <p className="text-red-400 p-4 bg-red-900/20 rounded-lg">
+                    Error formatting response
+                </p>
+            );
         }
     };
 
@@ -73,7 +94,7 @@ const VideoTranscript = () => {
         const selectedFile = event.target.files[0];
         if (selectedFile && selectedFile.type.startsWith("video/")) {
             setFile(selectedFile);
-            setVideoUrl(URL.createObjectURL(selectedFile));;
+            setVideoUrl(URL.createObjectURL(selectedFile));
             setOutput("");
         } else {
             toast.error("Please select a valid video file");
@@ -83,7 +104,7 @@ const VideoTranscript = () => {
     };
 
     const handleGetTranscript = async () => {
-        setIsProcessing(true);;
+        setIsProcessing(true);
 
         try {
             const formData = new FormData();
@@ -160,7 +181,7 @@ const VideoTranscript = () => {
                                         setUploadType(type);
                                         setFile(null);
                                         setVideoUrl("");
-                                        setTranscriptionText("");;
+                                        setTranscriptionText("");
                                     }}
                                 />
                             </div>
@@ -245,7 +266,8 @@ const VideoTranscript = () => {
                                     </div>
                                 ) : (
                                     <div className="flex items-center justify-center h-[200px] text-slate-400 italic">
-                                        Click 'Analyze Transcription' to analyze...
+                                        Click 'Analyze Transcription' to
+                                        analyze...
                                     </div>
                                 )}
                             </div>

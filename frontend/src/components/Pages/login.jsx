@@ -1,10 +1,10 @@
-/* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import { Brain, BarChart2, Share2, ChevronRight, Mail, Lock } from "lucide-react";
 import { useState } from "react";
-import axios from "axios"; // Corrected import
+import axios from "axios";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom"
 
 
 const Login = () => {
@@ -18,6 +18,7 @@ const Login = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -35,6 +36,9 @@ const Login = () => {
             toast.success("Login successful!", {
                 position: "top-right",
             });
+
+            navigate("/home");
+
         } catch (error) {
             toast.error( error.response?.data?.message ||  "Login failed. Please check your credentials.", {
                 position: "top-right",

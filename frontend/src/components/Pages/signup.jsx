@@ -1,11 +1,10 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
-import { Brain, BarChart, Search, ChevronRight, Mail, Lock, UserCircle, User, AtSign, Sparkles, Network } from "lucide-react";
+import { Brain, BarChart, Search, ChevronRight, Mail, Lock, UserCircle, User, Sparkles, Network } from "lucide-react";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
     const [email, setEmail] = useState("");
@@ -13,6 +12,7 @@ const Signup = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [fullName, setFullName] = useState("");
     const [username, setUsername] = useState("");
+    const navigate = useNavigate();
 
     const FloatingMessage = ({ icon: Icon, color, className }) => (
         <div className={`absolute ${className} animate-bounce opacity-20`}>
@@ -46,6 +46,7 @@ const Signup = () => {
             toast.success("Login successful!", {
                 position: "top-right",
             });
+            navigate("/home");
         } catch (error) {
             toast.error( error.response?.data?.message ||  "Login failed. Please check your credentials.", {
                 position: "top-right",
