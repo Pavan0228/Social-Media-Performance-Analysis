@@ -17,61 +17,52 @@ const VideoTranscript = () => {
         if (!responseData) return null;
 
         try {
-            const message =
-                responseData.data.outputs[0].outputs[0].results.message.text;
+            const message = responseData.outputs[0].outputs[0].messages[0].message;
 
             const getIcon = (title) => {
-                switch (title.toLowerCase()) {
-                    case "strengths":
-                        return <Star className="w-6 h-6 text-yellow-400" />;
-                    case "weaknesses":
-                        return (
-                            <AlertTriangle className="w-6 h-6 text-red-400" />
-                        );
-                    case "suggestions":
-                        return <Lightbulb className="w-6 h-6 text-blue-400" />;
+                switch (title) {
+                    case "Strengths:":
+                        return <Star className="w-5 h-5 text-yellow-400" />;
+                    case "Weaknesses:":
+                        return <AlertTriangle className="w-5 h-5 text-red-400" />;
+                    case "Suggestions:":
+                        return <Lightbulb className="w-5 h-5 text-blue-400" />;
                     default:
-                        return (
-                            <ChevronRight className="w-6 h-6 text-green-400" />
-                        );
+                        return null;
                 }
             };
 
+            // Split the message into sections
+            const sections = message.split(/(?=Strengths:|Weaknesses:|Suggestions:)/);
+            
             return (
-                <div className="space-y-8 p-6 bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl shadow-2xl">
-                    {message.split("\n\n").map((section, index) => {
-                        if (section.trim()) {
-                            const [title, ...content] = section.split("\n");
+                <div className="space-y-6 text-white">
+                    {sections.map((section, index) => {
+                        const lines = section.trim().split('\n');
+                        const title = lines[0];
+                        const content = lines.slice(1);
+
+                        
+
+                        if (["Strengths:", "Weaknesses:", "Suggestions:"].includes(title)) {
                             return (
-                                <div
-                                    key={index}
-                                    className="bg-gray-800/50 rounded-xl p-6 transform transition-all duration-300 hover:scale-[1.02] hover:bg-gray-800/70 border border-gray-700/50 shadow-lg"
-                                >
-                                    <h4 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 mb-4 flex items-center">
-                                        {getIcon(title.trim())}
-                                        <span className="ml-2">
-                                            {title.trim()}
-                                        </span>
+                                <div key={index} className="space-y-2">
+                                    <h4 className="flex items-center gap-2 font-semibold text-lg">
+                                        {getIcon(title)}
+                                        {title}
                                     </h4>
-                                    <div className="space-y-3">
-                                        {content.map((line, i) => (
-                                            <div
-                                                key={i}
-                                                className="flex items-start space-x-3 text-gray-300 p-3 hover:bg-gray-700/30 rounded-lg transition-all duration-200 group"
-                                            >
-                                                <span className="text-purple-400 text-lg group-hover:text-pink-400 transition-colors duration-200">
-                                                    {line
-                                                        .trim()
-                                                        .startsWith("1.") ||
-                                                    line.trim().startsWith("2.")
-                                                        ? "•"
-                                                        : ""}
-                                                </span>
-                                                <span className="flex-1 group-hover:text-gray-100 transition-colors duration-200">
-                                                    {line.trim()}
-                                                </span>
-                                            </div>
-                                        ))}
+                                    <div className="space-y-2 pl-7">
+                                        {content.map((line, i) => {
+                                            const trimmedLine = line.trim();
+                                            if (trimmedLine) {  // Only render non-empty lines
+                                                return (
+                                                    <div key={i} className="flex gap-2 ml-10">
+                                                        <span>{trimmedLine}</span>
+                                                    </div>
+                                                );
+                                            }
+                                            return null;
+                                        })}
                                     </div>
                                 </div>
                             );
@@ -83,7 +74,7 @@ const VideoTranscript = () => {
         } catch (error) {
             console.error("Error formatting output:", error);
             return (
-                <p className="text-red-400 p-4 bg-red-900/20 rounded-lg">
+                <p className="text-red-400">
                     Error formatting response
                 </p>
             );
@@ -142,8 +133,9 @@ const VideoTranscript = () => {
             }
 
             const data = await response.json();
-            if (data.success) {
-                setOutput(data);
+            console.log(data)
+            if (data) {
+                setOutput({ responseData: data });
                 toast.success("Transcription analysis completed successfully");
             } else {
                 toast.error("Failed to process request");
@@ -225,7 +217,7 @@ const VideoTranscript = () => {
                                             setTranscriptionText(e.target.value)
                                         }
                                         placeholder="Paste your transcription text here..."
-                                        className="w-full h-32 bg-slate-800 text-white p-4 rounded-xl border border-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                        className="w-full h-52 bg-slate-800 text-white p-4 rounded-xl border border-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
                                     />
                                     <button
                                         onClick={handleGetTranscript}
@@ -289,18 +281,16 @@ const ToggleSwitch = ({ value, onChange }) => (
         />
         <button
             onClick={() => onChange("video")}
-            className={`relative z-10 flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors duration-300 min-w-[140px] justify-center ${
-                value === "video" ? "text-white" : "text-slate-400"
-            }`}
+            className={`relative z-10 flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors duration-300 min-w-[140px] justify-center ${value === "video" ? "text-white" : "text-slate-400"
+                }`}
         >
             <Video size={18} />
             Video
         </button>
         <button
             onClick={() => onChange("text")}
-            className={`relative z-10 flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors duration-300 min-w-[140px] justify-center ${
-                value === "text" ? "text-white" : "text-slate-400"
-            }`}
+            className={`relative z-10 flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors duration-300 min-w-[140px] justify-center ${value === "text" ? "text-white" : "text-slate-400"
+                }`}
         >
             <FileText size={18} />
             Text
