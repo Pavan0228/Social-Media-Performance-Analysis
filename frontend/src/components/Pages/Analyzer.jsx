@@ -4,12 +4,16 @@ import { Link } from 'react-router-dom';
 const Analyzer = () => {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
+  // Commented out image-related states
+  /*
   const [image, setImage] = useState(null);
   const [imageText, setImageText] = useState('');
-  const [isProcessing, setIsProcessing] = useState(false);
   const [showImageUpload, setShowImageUpload] = useState(false);
   const fileInputRef = useRef(null);
+  */
 
+  // Commented out image handling functions
+  /*
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -24,13 +28,7 @@ const Analyzer = () => {
 
         // Create form data for upload
         const formData = new FormData();
-        formData.append('image', file);
-
-        // Send to backend for OCR processing
-        const response = await fetch('http://localhost:3000/api/v1/ocr', {
-          method: 'POST',
-          body: formData,
-        });
+        formData.append('image', file);       
 
         const data = await response.json();
         if (data.text) {
@@ -57,6 +55,7 @@ const Analyzer = () => {
       handleImageUpload({ target: { files: [file] } });
     }
   };
+  */
 
   const formatOutput = (text) => {
     if (text.includes('###')) {
@@ -160,9 +159,12 @@ const Analyzer = () => {
     }
   };
 
+  // Commented out image toggle function
+  /*
   const toggleImageUpload = () => {
     setShowImageUpload(!showImageUpload);
   };
+  */
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 p-8 animate-[fadeIn_0.6s_ease-in-out]">
@@ -181,6 +183,7 @@ const Analyzer = () => {
           </h2>
           
           <div className="space-y-6">
+            {/* Commented out image upload section
             <div className="space-y-4">
               <button
                 onClick={toggleImageUpload}
@@ -248,6 +251,7 @@ const Analyzer = () => {
                 </div>
               )}
             </div>
+            */}
 
             <div className="bg-slate-700/30 p-6 rounded-2xl border border-slate-600/50">
               <h3 className="text-lg font-medium text-slate-200 mb-4">Enter Your Message</h3>
