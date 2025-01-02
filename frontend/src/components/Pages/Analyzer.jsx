@@ -51,7 +51,7 @@ const Analyzer = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/v1/analytics/test', {
+      const response = await fetch('http://localhost:3000/api/v1/analytics', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
