@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Link } from 'react-router-dom';
 import { Line } from 'react-chartjs-2';
 import {
