@@ -58,81 +58,36 @@ const Analyzer = () => {
   */
 
   const formatOutput = (text) => {
-    if (text.includes('###')) {
-      const sections = text.split('###').filter(Boolean);
-      return (
-        <div className="space-y-6">
-          {sections.map((section, index) => {
-            const [title, ...content] = section.trim().split('\n');
-            return (
-              <div 
-                key={index} 
-                className="bg-slate-800/40 rounded-xl p-4 transform transition-all duration-300 hover:scale-[1.01] hover:bg-slate-800/60 border border-slate-700/50"
-                style={{ animationDelay: `${index * 150}ms` }}
-              >
-                <h4 className="text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 mb-3 flex items-center">
-                  <span className="text-emerald-400 mr-2">●</span>
-                  {title.trim()}
-                </h4>
-                <div className="space-y-2">
-                  {content.map((line, i) => {
-                    // Handle bullet points with enhanced styling
-                    if (line.trim().startsWith('-')) {
-                      return (
-                        <div 
-                          key={i} 
-                          className="flex items-start space-x-2 text-slate-300 p-2 hover:bg-slate-700/30 rounded-lg transition-colors duration-200"
-                        >
-                          <span className="text-blue-400 text-lg">•</span>
-                          <span className="flex-1">{line.trim().substring(1)}</span>
-                        </div>
-                      );
-                    }
-                    // Handle numbered lists with enhanced styling
-                    if (line.trim().match(/^\d+\./)) {
-                      const [num, ...text] = line.split('.');
-                      return (
-                        <div 
-                          key={i} 
-                          className="flex items-start space-x-2 text-slate-300 p-2 hover:bg-slate-700/30 rounded-lg transition-colors duration-200"
-                        >
-                          <span className="text-emerald-400 font-medium min-w-[1.5rem] bg-emerald-400/10 rounded-md px-2 py-0.5">
-                            {num}
-                          </span>
-                          <span className="flex-1">{text.join('.').trim()}</span>
-                        </div>
-                      );
-                    }
-                    // Handle statistics or percentages with special styling
-                    if (line.includes('%') || /\d+\.\d+/.test(line)) {
-                      return (
-                        <div 
-                          key={i} 
-                          className="bg-slate-700/20 p-3 rounded-lg text-slate-300 hover:bg-slate-700/30 transition-colors duration-200"
-                        >
-                          <span className="text-blue-400 font-medium">{line.trim()}</span>
-                        </div>
-                      );
-                    }
-                    // Regular text with hover effect
-                    return (
-                      <p 
-                        key={i} 
-                        className="text-slate-300 p-2 hover:bg-slate-700/30 rounded-lg transition-colors duration-200"
-                      >
-                        {line.trim()}
-                      </p>
-                    );
-                  })}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      );
+    try {
+      const jsonData = typeof text === 'string' ? JSON.parse(text) : text;
+      
+      if (jsonData.postType) {
+        // Create a simple formatted string from the JSON data
+        const formattedText = [
+          `Content Type: ${jsonData.postType}`,
+          '',
+          'Performance Metrics:',
+          ...Object.entries(jsonData.predictedPerformance)
+            .map(([key, value]) => `${key}: ${typeof value === 'number' ? value.toFixed(2) : value}`),
+          '',
+          'Insights:',
+          ...jsonData.comparativeInsights.map(item => `• ${item.insight}`)
+        ].join('\n');
+
+        return (
+          <div className="bg-slate-800/40 rounded-xl p-4 hover:bg-slate-800/60 transition-all duration-300">
+            <pre className="text-slate-300 whitespace-pre-wrap font-sans">{formattedText}</pre>
+          </div>
+        );
+      }
+      
+      return formatTextOutput(text);
+    } catch (e) {
+      return formatTextOutput(text);
     }
-    
-    // Fallback for plain text with basic styling
+  };
+
+  const formatTextOutput = (text) => {
     return (
       <div className="bg-slate-800/40 rounded-xl p-4 hover:bg-slate-800/60 transition-all duration-300">
         <p className="text-slate-300">{text}</p>

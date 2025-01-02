@@ -3,7 +3,7 @@
     "outputs": [
         {
             "inputs": {
-                "input_value": "I am uploading a story how much performance will it do? "
+                "input_value": "I am posting a story what will be my engagment metric?"
             },
             "outputs": [
                 {
@@ -11,11 +11,11 @@
                         "message": {
                             "text_key": "text",
                             "data": {
-                                "timestamp": "2025-01-01T14:34:09",
+                                "timestamp": "2025-01-02T18:41:36",
                                 "sender": "Machine",
                                 "sender_name": "AI",
                                 "session_id": "7c27ac3a-86ce-487c-b556-23fe15e4b3f9",
-                                "text": "To predict the performance of the \"story\" post type, we first need to calculate the average engagement metrics based on the historical data provided. \n\n### Historical Data for Each Post Type:\n1. **Carousel**\n   - Likes: 150\n   - Shares: 30\n   - Comments: 25\n   - **Average Engagement**: (150 + 30 + 25) / 3 = 68.33\n\n2. **Reel**\n   - Likes: 200\n   - Shares: 50\n   - Comments: 40\n   - **Average Engagement**: (200 + 50 + 40) / 3 = 96.67\n\n3. **Static**\n   - Likes: 100\n   - Shares: 15\n   - Comments: 10\n   - **Average Engagement**: (100 + 15 + 10) / 3 = 41.67\n\n4. **Story**\n   - Likes: 180\n   - Shares: 40\n   - Comments: 30\n   - **Average Engagement**: (180 + 40 + 30) / 3 = 83.33\n\n5. **Blog**\n   - Likes: 120\n   - Shares: 20\n   - Comments: 15\n   - **Average Engagement**: (120 + 20 + 15) / 3 = 51.67\n\n6. **Podcast**\n   - Likes: 90\n   - Shares: 10\n   - Comments: 5\n   - **Average Engagement**: (90 + 10 + 5) / 3 = 35.00\n\n7. **Live Stream**\n   - Likes: 250\n   - Shares: 60\n   - Comments: 50\n   - **Average Engagement**: (250 + 60 + 50) / 3 = 120.00\n\n### Predicted Performance for \"Story\":\n- **Predicted Performance**: 83.33\n\n### Comparative Insights:\n1. **Story vs. Carousel**: \n   - \"Post type Story drives 22% more engagement compared to post type Carousel.\" (83.33 vs. 68.33)\n\n2. **Story vs. Reel**: \n   - \"Post type Story generates 13.6% less engagement than post type Reel.\" (83.33 vs. 96.67)\n\n3. **Story vs. Static**: \n   - \"Post type Story generates 100% more engagement than post type Static.\" (83.33 vs. 41.67)\n\n4. **Story vs. Blog**: \n   - \"Post type Story generates 61% more engagement than post type Blog.\" (83.33 vs. 51.67)\n\n5. **Story vs. Podcast**: \n   - \"Post type Story generates 138% more engagement than post type Podcast.\" (83.33 vs. 35.00)\n\n6. **Story vs. Live Stream**: \n   - \"Post type Story generates 30.7% less engagement than post type Live Stream.\" (83.33 vs. 120.00)\n\n### Summary:\nThe predicted performance for your \"story\" post type is **83.33**. It performs well compared to static and blog posts but is slightly lower than reels and live streams.",
+                                "text": "{\n  \"postType\": \"story\",\n  \"predictedPerformance\": {\n    \"averageLikes\": 180,\n    \"averageShares\": 40,\n    \"averageComments\": 30,\n    \"performanceScore\": 83.33\n  },\n  \"comparativeInsights\": [\n    {\n      \"insight\": \"Post type story generates 1.25 times more engagement compared to post type carousel.\"\n    },\n    {\n      \"insight\": \"Post type story generates 2 times more shares than other formats on average.\"\n    },\n    {\n      \"insight\": \"Post type story generates 1.5 times more likes than other formats on average.\"\n    }\n  ]\n}",
                                 "files": [],
                                 "error": false,
                                 "edit": false,
@@ -26,7 +26,7 @@
                                     "source": {
                                         "id": "OpenAIModel-gx0dW",
                                         "display_name": "OpenAI",
-                                        "source": "gpt-4o-mini"
+                                        "source": "gpt-3.5-turbo"
                                     },
                                     "icon": "OpenAI",
                                     "allow_markdown": false,
@@ -35,16 +35,16 @@
                                 },
                                 "category": "message",
                                 "content_blocks": [],
-                                "id": "a4f2c7a8-8dcd-4fc5-b9ce-788947c3241e",
+                                "id": "8763e82e-2be1-48f5-87b1-82d297293c98",
                                 "flow_id": "7c27ac3a-86ce-487c-b556-23fe15e4b3f9"
                             },
                             "default_value": "",
-                            "text": "To predict the performance of the \"story\" post type, we first need to calculate the average engagement metrics based on the historical data provided. \n\n### Historical Data for Each Post Type:\n1. **Carousel**\n   - Likes: 150\n   - Shares: 30\n   - Comments: 25\n   - **Average Engagement**: (150 + 30 + 25) / 3 = 68.33\n\n2. **Reel**\n   - Likes: 200\n   - Shares: 50\n   - Comments: 40\n   - **Average Engagement**: (200 + 50 + 40) / 3 = 96.67\n\n3. **Static**\n   - Likes: 100\n   - Shares: 15\n   - Comments: 10\n   - **Average Engagement**: (100 + 15 + 10) / 3 = 41.67\n\n4. **Story**\n   - Likes: 180\n   - Shares: 40\n   - Comments: 30\n   - **Average Engagement**: (180 + 40 + 30) / 3 = 83.33\n\n5. **Blog**\n   - Likes: 120\n   - Shares: 20\n   - Comments: 15\n   - **Average Engagement**: (120 + 20 + 15) / 3 = 51.67\n\n6. **Podcast**\n   - Likes: 90\n   - Shares: 10\n   - Comments: 5\n   - **Average Engagement**: (90 + 10 + 5) / 3 = 35.00\n\n7. **Live Stream**\n   - Likes: 250\n   - Shares: 60\n   - Comments: 50\n   - **Average Engagement**: (250 + 60 + 50) / 3 = 120.00\n\n### Predicted Performance for \"Story\":\n- **Predicted Performance**: 83.33\n\n### Comparative Insights:\n1. **Story vs. Carousel**: \n   - \"Post type Story drives 22% more engagement compared to post type Carousel.\" (83.33 vs. 68.33)\n\n2. **Story vs. Reel**: \n   - \"Post type Story generates 13.6% less engagement than post type Reel.\" (83.33 vs. 96.67)\n\n3. **Story vs. Static**: \n   - \"Post type Story generates 100% more engagement than post type Static.\" (83.33 vs. 41.67)\n\n4. **Story vs. Blog**: \n   - \"Post type Story generates 61% more engagement than post type Blog.\" (83.33 vs. 51.67)\n\n5. **Story vs. Podcast**: \n   - \"Post type Story generates 138% more engagement than post type Podcast.\" (83.33 vs. 35.00)\n\n6. **Story vs. Live Stream**: \n   - \"Post type Story generates 30.7% less engagement than post type Live Stream.\" (83.33 vs. 120.00)\n\n### Summary:\nThe predicted performance for your \"story\" post type is **83.33**. It performs well compared to static and blog posts but is slightly lower than reels and live streams.",
+                            "text": "{\n  \"postType\": \"story\",\n  \"predictedPerformance\": {\n    \"averageLikes\": 180,\n    \"averageShares\": 40,\n    \"averageComments\": 30,\n    \"performanceScore\": 83.33\n  },\n  \"comparativeInsights\": [\n    {\n      \"insight\": \"Post type story generates 1.25 times more engagement compared to post type carousel.\"\n    },\n    {\n      \"insight\": \"Post type story generates 2 times more shares than other formats on average.\"\n    },\n    {\n      \"insight\": \"Post type story generates 1.5 times more likes than other formats on average.\"\n    }\n  ]\n}",
                             "sender": "Machine",
                             "sender_name": "AI",
                             "files": [],
                             "session_id": "7c27ac3a-86ce-487c-b556-23fe15e4b3f9",
-                            "timestamp": "2025-01-01T14:34:09Z",
+                            "timestamp": "2025-01-02T18:41:36Z",
                             "flow_id": "7c27ac3a-86ce-487c-b556-23fe15e4b3f9",
                             "error": false,
                             "edit": false,
@@ -55,7 +55,7 @@
                                 "source": {
                                     "id": "OpenAIModel-gx0dW",
                                     "display_name": "OpenAI",
-                                    "source": "gpt-4o-mini"
+                                    "source": "gpt-3.5-turbo"
                                 },
                                 "icon": "OpenAI",
                                 "allow_markdown": false,
@@ -67,7 +67,7 @@
                         }
                     },
                     "artifacts": {
-                        "message": "To predict the performance of the \"story\" post type, we first need to calculate the average engagement metrics based on the historical data provided. \n\n### Historical Data for Each Post Type:\n\n1. **Carousel**\n\n   - Likes: 150\n\n   - Shares: 30\n\n   - Comments: 25\n\n   - **Average Engagement**: (150 + 30 + 25) / 3 = 68.33\n\n2. **Reel**\n\n   - Likes: 200\n\n   - Shares: 50\n\n   - Comments: 40\n\n   - **Average Engagement**: (200 + 50 + 40) / 3 = 96.67\n\n3. **Static**\n\n   - Likes: 100\n\n   - Shares: 15\n\n   - Comments: 10\n\n   - **Average Engagement**: (100 + 15 + 10) / 3 = 41.67\n\n4. **Story**\n\n   - Likes: 180\n\n   - Shares: 40\n\n   - Comments: 30\n\n   - **Average Engagement**: (180 + 40 + 30) / 3 = 83.33\n\n5. **Blog**\n\n   - Likes: 120\n\n   - Shares: 20\n\n   - Comments: 15\n\n   - **Average Engagement**: (120 + 20 + 15) / 3 = 51.67\n\n6. **Podcast**\n\n   - Likes: 90\n\n   - Shares: 10\n\n   - Comments: 5\n\n   - **Average Engagement**: (90 + 10 + 5) / 3 = 35.00\n\n7. **Live Stream**\n\n   - Likes: 250\n\n   - Shares: 60\n\n   - Comments: 50\n\n   - **Average Engagement**: (250 + 60 + 50) / 3 = 120.00\n\n### Predicted Performance for \"Story\":\n\n- **Predicted Performance**: 83.33\n\n### Comparative Insights:\n\n1. **Story vs. Carousel**: \n\n   - \"Post type Story drives 22% more engagement compared to post type Carousel.\" (83.33 vs. 68.33)\n\n2. **Story vs. Reel**: \n\n   - \"Post type Story generates 13.6% less engagement than post type Reel.\" (83.33 vs. 96.67)\n\n3. **Story vs. Static**: \n\n   - \"Post type Story generates 100% more engagement than post type Static.\" (83.33 vs. 41.67)\n\n4. **Story vs. Blog**: \n\n   - \"Post type Story generates 61% more engagement than post type Blog.\" (83.33 vs. 51.67)\n\n5. **Story vs. Podcast**: \n\n   - \"Post type Story generates 138% more engagement than post type Podcast.\" (83.33 vs. 35.00)\n\n6. **Story vs. Live Stream**: \n\n   - \"Post type Story generates 30.7% less engagement than post type Live Stream.\" (83.33 vs. 120.00)\n\n### Summary:\n\nThe predicted performance for your \"story\" post type is **83.33**. It performs well compared to static and blog posts but is slightly lower than reels and live streams.",
+                        "message": "{\n\n  \"postType\": \"story\",\n\n  \"predictedPerformance\": {\n\n    \"averageLikes\": 180,\n\n    \"averageShares\": 40,\n\n    \"averageComments\": 30,\n\n    \"performanceScore\": 83.33\n\n  },\n\n  \"comparativeInsights\": [\n\n    {\n\n      \"insight\": \"Post type story generates 1.25 times more engagement compared to post type carousel.\"\n\n    },\n\n    {\n\n      \"insight\": \"Post type story generates 2 times more shares than other formats on average.\"\n\n    },\n\n    {\n\n      \"insight\": \"Post type story generates 1.5 times more likes than other formats on average.\"\n\n    }\n\n  ]\n\n}",
                         "sender": "Machine",
                         "sender_name": "AI",
                         "files": [],
@@ -76,11 +76,11 @@
                     "outputs": {
                         "message": {
                             "message": {
-                                "timestamp": "2025-01-01T14:34:09",
+                                "timestamp": "2025-01-02T18:41:36",
                                 "sender": "Machine",
                                 "sender_name": "AI",
                                 "session_id": "7c27ac3a-86ce-487c-b556-23fe15e4b3f9",
-                                "text": "To predict the performance of the \"story\" post type, we first need to calculate the average engagement metrics based on the historical data provided. \n\n### Historical Data for Each Post Type:\n1. **Carousel**\n   - Likes: 150\n   - Shares: 30\n   - Comments: 25\n   - **Average Engagement**: (150 + 30 + 25) / 3 = 68.33\n\n2. **Reel**\n   - Likes: 200\n   - Shares: 50\n   - Comments: 40\n   - **Average Engagement**: (200 + 50 + 40) / 3 = 96.67\n\n3. **Static**\n   - Likes: 100\n   - Shares: 15\n   - Comments: 10\n   - **Average Engagement**: (100 + 15 + 10) / 3 = 41.67\n\n4. **Story**\n   - Likes: 180\n   - Shares: 40\n   - Comments: 30\n   - **Average Engagement**: (180 + 40 + 30) / 3 = 83.33\n\n5. **Blog**\n   - Likes: 120\n   - Shares: 20\n   - Comments: 15\n   - **Average Engagement**: (120 + 20 + 15) / 3 = 51.67\n\n6. **Podcast**\n   - Likes: 90\n   - Shares: 10\n   - Comments: 5\n   - **Average Engagement**: (90 + 10 + 5) / 3 = 35.00\n\n7. **Live Stream**\n   - Likes: 250\n   - Shares: 60\n   - Comments: 50\n   - **Average Engagement**: (250 + 60 + 50) / 3 = 120.00\n\n### Predicted Performance for \"Story\":\n- **Predicted Performance**: 83.33\n\n### Comparative Insights:\n1. **Story vs. Carousel**: \n   - \"Post type Story drives 22% more engagement compared to post type Carousel.\" (83.33 vs. 68.33)\n\n2. **Story vs. Reel**: \n   - \"Post type Story generates 13.6% less engagement than post type Reel.\" (83.33 vs. 96.67)\n\n3. **Story vs. Static**: \n   - \"Post type Story generates 100% more engagement than post type Static.\" (83.33 vs. 41.67)\n\n4. **Story vs. Blog**: \n   - \"Post type Story generates 61% more engagement than post type Blog.\" (83.33 vs. 51.67)\n\n5. **Story vs. Podcast**: \n   - \"Post type Story generates 138% more engagement than post type Podcast.\" (83.33 vs. 35.00)\n\n6. **Story vs. Live Stream**: \n   - \"Post type Story generates 30.7% less engagement than post type Live Stream.\" (83.33 vs. 120.00)\n\n### Summary:\nThe predicted performance for your \"story\" post type is **83.33**. It performs well compared to static and blog posts but is slightly lower than reels and live streams.",
+                                "text": "{\n  \"postType\": \"story\",\n  \"predictedPerformance\": {\n    \"averageLikes\": 180,\n    \"averageShares\": 40,\n    \"averageComments\": 30,\n    \"performanceScore\": 83.33\n  },\n  \"comparativeInsights\": [\n    {\n      \"insight\": \"Post type story generates 1.25 times more engagement compared to post type carousel.\"\n    },\n    {\n      \"insight\": \"Post type story generates 2 times more shares than other formats on average.\"\n    },\n    {\n      \"insight\": \"Post type story generates 1.5 times more likes than other formats on average.\"\n    }\n  ]\n}",
                                 "files": [],
                                 "error": false,
                                 "edit": false,
@@ -91,7 +91,7 @@
                                     "source": {
                                         "id": "OpenAIModel-gx0dW",
                                         "display_name": "OpenAI",
-                                        "source": "gpt-4o-mini"
+                                        "source": "gpt-3.5-turbo"
                                     },
                                     "icon": "OpenAI",
                                     "allow_markdown": false,
@@ -100,7 +100,7 @@
                                 },
                                 "category": "message",
                                 "content_blocks": [],
-                                "id": "a4f2c7a8-8dcd-4fc5-b9ce-788947c3241e",
+                                "id": "8763e82e-2be1-48f5-87b1-82d297293c98",
                                 "flow_id": "7c27ac3a-86ce-487c-b556-23fe15e4b3f9"
                             },
                             "type": "object"
@@ -111,7 +111,7 @@
                     },
                     "messages": [
                         {
-                            "message": "To predict the performance of the \"story\" post type, we first need to calculate the average engagement metrics based on the historical data provided. \n\n### Historical Data for Each Post Type:\n\n1. **Carousel**\n\n   - Likes: 150\n\n   - Shares: 30\n\n   - Comments: 25\n\n   - **Average Engagement**: (150 + 30 + 25) / 3 = 68.33\n\n2. **Reel**\n\n   - Likes: 200\n\n   - Shares: 50\n\n   - Comments: 40\n\n   - **Average Engagement**: (200 + 50 + 40) / 3 = 96.67\n\n3. **Static**\n\n   - Likes: 100\n\n   - Shares: 15\n\n   - Comments: 10\n\n   - **Average Engagement**: (100 + 15 + 10) / 3 = 41.67\n\n4. **Story**\n\n   - Likes: 180\n\n   - Shares: 40\n\n   - Comments: 30\n\n   - **Average Engagement**: (180 + 40 + 30) / 3 = 83.33\n\n5. **Blog**\n\n   - Likes: 120\n\n   - Shares: 20\n\n   - Comments: 15\n\n   - **Average Engagement**: (120 + 20 + 15) / 3 = 51.67\n\n6. **Podcast**\n\n   - Likes: 90\n\n   - Shares: 10\n\n   - Comments: 5\n\n   - **Average Engagement**: (90 + 10 + 5) / 3 = 35.00\n\n7. **Live Stream**\n\n   - Likes: 250\n\n   - Shares: 60\n\n   - Comments: 50\n\n   - **Average Engagement**: (250 + 60 + 50) / 3 = 120.00\n\n### Predicted Performance for \"Story\":\n\n- **Predicted Performance**: 83.33\n\n### Comparative Insights:\n\n1. **Story vs. Carousel**: \n\n   - \"Post type Story drives 22% more engagement compared to post type Carousel.\" (83.33 vs. 68.33)\n\n2. **Story vs. Reel**: \n\n   - \"Post type Story generates 13.6% less engagement than post type Reel.\" (83.33 vs. 96.67)\n\n3. **Story vs. Static**: \n\n   - \"Post type Story generates 100% more engagement than post type Static.\" (83.33 vs. 41.67)\n\n4. **Story vs. Blog**: \n\n   - \"Post type Story generates 61% more engagement than post type Blog.\" (83.33 vs. 51.67)\n\n5. **Story vs. Podcast**: \n\n   - \"Post type Story generates 138% more engagement than post type Podcast.\" (83.33 vs. 35.00)\n\n6. **Story vs. Live Stream**: \n\n   - \"Post type Story generates 30.7% less engagement than post type Live Stream.\" (83.33 vs. 120.00)\n\n### Summary:\n\nThe predicted performance for your \"story\" post type is **83.33**. It performs well compared to static and blog posts but is slightly lower than reels and live streams.",
+                            "message": "{\n\n  \"postType\": \"story\",\n\n  \"predictedPerformance\": {\n\n    \"averageLikes\": 180,\n\n    \"averageShares\": 40,\n\n    \"averageComments\": 30,\n\n    \"performanceScore\": 83.33\n\n  },\n\n  \"comparativeInsights\": [\n\n    {\n\n      \"insight\": \"Post type story generates 1.25 times more engagement compared to post type carousel.\"\n\n    },\n\n    {\n\n      \"insight\": \"Post type story generates 2 times more shares than other formats on average.\"\n\n    },\n\n    {\n\n      \"insight\": \"Post type story generates 1.5 times more likes than other formats on average.\"\n\n    }\n\n  ]\n\n}",
                             "sender": "Machine",
                             "sender_name": "AI",
                             "session_id": "7c27ac3a-86ce-487c-b556-23fe15e4b3f9",
