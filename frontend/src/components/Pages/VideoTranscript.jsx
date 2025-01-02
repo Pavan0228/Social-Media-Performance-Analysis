@@ -9,7 +9,6 @@ const VideoTranscript = () => {
     const [videoUrl, setVideoUrl] = useState("");
     const [output, setOutput] = useState("");
     const [isProcessing, setIsProcessing] = useState(false);
-    const [error, setError] = useState("");
     const [uploadType, setUploadType] = useState("video");
     const [transcriptionText, setTranscriptionText] = useState("");
     const fileInputRef = useRef(null);
@@ -74,19 +73,17 @@ const VideoTranscript = () => {
         const selectedFile = event.target.files[0];
         if (selectedFile && selectedFile.type.startsWith("video/")) {
             setFile(selectedFile);
-            setVideoUrl(URL.createObjectURL(selectedFile));
-            setError("");
+            setVideoUrl(URL.createObjectURL(selectedFile));;
             setOutput("");
         } else {
-            setError("Please select a valid video file");
+            toast.error("Please select a valid video file");
             setFile(null);
             setVideoUrl("");
         }
     };
 
     const handleGetTranscript = async () => {
-        setIsProcessing(true);
-        setError("");
+        setIsProcessing(true);;
 
         try {
             const formData = new FormData();
@@ -126,12 +123,13 @@ const VideoTranscript = () => {
             const data = await response.json();
             if (data.success) {
                 setOutput(data);
+                toast.success("Transcription analysis completed successfully");
             } else {
-                setError("Failed to process request");
+                toast.error("Failed to process request");
             }
         } catch (err) {
             console.error("Error:", err);
-            setError("Error processing request: " + err.message);
+            toast.error("Error processing request: " + err.message);
         } finally {
             setIsProcessing(false);
         }
@@ -162,8 +160,7 @@ const VideoTranscript = () => {
                                         setUploadType(type);
                                         setFile(null);
                                         setVideoUrl("");
-                                        setTranscriptionText("");
-                                        setError("");
+                                        setTranscriptionText("");;
                                     }}
                                 />
                             </div>
@@ -219,13 +216,6 @@ const VideoTranscript = () => {
                                     </button>
                                 </div>
                             )}
-
-                            {error && (
-                                <div className="mt-4 text-red-400 text-sm">
-                                    {error}
-                                </div>
-                            )}
-
                             {videoUrl && (
                                 <div className="mt-4">
                                     <video
