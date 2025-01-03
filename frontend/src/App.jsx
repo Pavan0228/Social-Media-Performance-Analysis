@@ -8,6 +8,7 @@ import { ToastContainer } from "react-toastify";
 import ProtectedRoute from "./ProtectedRoute";
 import "react-toastify/dist/ReactToastify.css";
 import VideoTranscript from "./components/Pages/VideoTranscript";
+import ThumbnailAnalyzer from "./components/Pages/ThumbnailAnalyzer";
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
                 {/* Public Routes */}
                 <Route exact path="/" element={<Login />} />
                 <Route exact path="/signup" element={<Signup />} />
+                <Route exact path="/thumbnail" element={<ThumbnailAnalyzer/>}/>
 
                 {/* Protected Routes */}
                 <Route
@@ -45,6 +47,7 @@ function App() {
                         </ProtectedRoute>
                     }
                 />
+                
             </Routes>
             <ToastContainer />
         </Router>
