@@ -3,7 +3,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 
 const app = express({
-    origin: process.env.CORS_ORIGIN
+    origin: process.env.CORS_ORIGIN,
 });
 
 app.use(cors());
@@ -16,11 +16,14 @@ import { transcriptRouter } from "./routers/transcript.routes.js";
 import { analyticsRouter } from "./routers/analytics.routes.js";
 import thumbnailRouter from "./routers/thumbnail.routes.js";
 
+//add test route
+app.get("/", (req, res) => {
+    res.send("This is a test route!");
+});
 
 app.use("/api/v1/auth", userRouter);
 app.use("/api/v1/transcript", transcriptRouter);
 app.use("/api/v1/analytics", analyticsRouter);
 app.use("/api/v1/thumbnail", thumbnailRouter);
 
-
-export {app};
+export { app };
