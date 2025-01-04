@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Video, FileText, Star, AlertTriangle, Lightbulb } from "lucide-react";
 import { toast } from "react-toastify";
+import { apiUrl } from '../../constant';
 
 const VideoTranscript = () => {
     const [file, setFile] = useState(null);
@@ -113,7 +114,7 @@ const VideoTranscript = () => {
             }
 
             const response = await fetch(
-                "http://localhost:3000/api/v1/transcript/upload",
+                `${apiUrl}/transcript/upload`,
                 {
                     method: "POST",
                     body: formData,

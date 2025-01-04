@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { apiUrl } from '../../constant';
 
 const Signup = () => {
     const [email, setEmail] = useState("");
@@ -31,7 +32,7 @@ const Signup = () => {
         }
 
         try {
-            const response = await axios.post("http://localhost:3000/api/v1/auth/register", {
+            const response = await axios.post(`${apiUrl}/auth/register`, {
                 email,
                 password,
                 fullName,

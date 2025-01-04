@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { apiUrl } from '../../constant';
+
 
 const ThumbnailAnalyzer = () => {
   const [imageFile, setImageFile] = useState(null);
@@ -48,7 +50,7 @@ const ThumbnailAnalyzer = () => {
     formData.append('topic', topic.trim());
 
     try {
-      const response = await axios.post('http://localhost:3000/api/v1/thumbnail/analyze', formData, {
+      const response = await axios.post(`${apiUrl}/thumbnail/analyze`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${accessToken}`

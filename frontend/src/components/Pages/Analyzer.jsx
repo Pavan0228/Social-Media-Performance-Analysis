@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { apiUrl } from '../../constant';
 
 const Analyzer = () => {
   const [input, setInput] = useState('');
@@ -48,7 +49,7 @@ const Analyzer = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/v1/analytics', {
+      const response = await fetch(`${apiUrl}/analytics`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

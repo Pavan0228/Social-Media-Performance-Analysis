@@ -5,6 +5,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { apiUrl } from '../../constant';
 
 const Login = () => {
     const FloatingMessage = ({ icon: Icon, color, className }) => (
@@ -22,7 +23,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("http://localhost:3000/api/v1/auth/login", {
+            const response = await axios.post(`${apiUrl}/auth/login`, {
                 email,
                 password,
                 username: email,
