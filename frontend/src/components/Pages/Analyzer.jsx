@@ -49,7 +49,7 @@ const Analyzer = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch(`${apiUrl}/analytics`, {
+      const response = await fetch(`${apiUrl}/analytics/test`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
