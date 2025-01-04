@@ -1,7 +1,6 @@
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Video, FileText } from "lucide-react";
-import { ChevronRight, Star, AlertTriangle, Lightbulb } from "lucide-react";
+import { Video, FileText, Star, AlertTriangle, Lightbulb } from "lucide-react";
 import { toast } from "react-toastify";
 
 const VideoTranscript = () => {
@@ -32,29 +31,26 @@ const VideoTranscript = () => {
                 }
             };
 
-            // Split the message into sections
             const sections = message.split(/(?=Strengths:|Weaknesses:|Suggestions:)/);
             
             return (
-                <div className="space-y-6 text-white">
+                <div className="space-y-6 text-slate-300">
                     {sections.map((section, index) => {
                         const lines = section.trim().split('\n');
                         const title = lines[0];
                         const content = lines.slice(1);
 
-                        
-
                         if (["Strengths:", "Weaknesses:", "Suggestions:"].includes(title)) {
                             return (
                                 <div key={index} className="space-y-2">
-                                    <h4 className="flex items-center gap-2 font-semibold text-lg">
+                                    <h4 className="flex items-center gap-2 font-semibold text-lg text-blue-300">
                                         {getIcon(title)}
                                         {title}
                                     </h4>
                                     <div className="space-y-2 pl-7">
                                         {content.map((line, i) => {
                                             const trimmedLine = line.trim();
-                                            if (trimmedLine) {  // Only render non-empty lines
+                                            if (trimmedLine) {
                                                 return (
                                                     <div key={i} className="flex gap-2 ml-10">
                                                         <span>{trimmedLine}</span>
@@ -73,11 +69,7 @@ const VideoTranscript = () => {
             );
         } catch (error) {
             console.error("Error formatting output:", error);
-            return (
-                <p className="text-red-400">
-                    Error formatting response
-                </p>
-            );
+            return <p className="text-red-400">Error formatting response</p>;
         }
     };
 
@@ -133,7 +125,6 @@ const VideoTranscript = () => {
             }
 
             const data = await response.json();
-            console.log(data)
             if (data) {
                 setOutput({ responseData: data });
                 toast.success("Transcription analysis completed successfully");
@@ -149,23 +140,16 @@ const VideoTranscript = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 p-8">
-            <div className="max-w-4xl mx-auto">
-                <Link
-                    to="/home"
-                    className="inline-flex items-center px-4 py-2 mb-6 text-sm font-medium text-white bg-slate-700/50 rounded-lg hover:bg-slate-600/50 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
-                >
-                    <span className="mr-2">←</span>
-                    Back to Dashboard
-                </Link>
+        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 p-8">
+            <div className="max-w-8xl mx-auto">
 
-                <div className="bg-slate-800/30 p-8 rounded-3xl shadow-2xl backdrop-blur-sm border border-slate-700/50">
-                    <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 mb-8">
+                <div className="bg-slate-900/80 p-8 rounded-3xl shadow-2xl backdrop-blur-sm border border-white/10">
+                    <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400 mb-8">
                         Video Transcription
                     </h2>
 
                     <div className="space-y-6">
-                        <div className="bg-slate-700/30 p-6 rounded-2xl border border-slate-600/50">
+                        <div className="bg-slate-900/50 p-6 rounded-2xl border border-white/10 hover:border-blue-500/20 transition-colors">
                             <div className="mb-6 flex justify-center">
                                 <ToggleSwitch
                                     value={uploadType}
@@ -188,20 +172,16 @@ const VideoTranscript = () => {
                                         className="hidden"
                                     />
                                     <button
-                                        onClick={() =>
-                                            fileInputRef.current.click()
-                                        }
-                                        className="px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium rounded-xl shadow-lg transition-all duration-200 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
+                                        onClick={() => fileInputRef.current.click()}
+                                        className="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-slate-300 font-medium rounded-xl shadow-lg shadow-blue-500/20 transition-all duration-200 hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-[0.98]"
                                     >
                                         Select Video
                                     </button>
                                     <button
                                         onClick={handleGetTranscript}
-                                        className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-medium rounded-xl shadow-lg transition-all duration-200 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
+                                        className="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-slate-300 font-medium rounded-xl shadow-lg shadow-blue-500/20 transition-all duration-200 hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-[0.98]"
                                     >
-                                        {isProcessing
-                                            ? "Processing..."
-                                            : "Analyze Transcription"}
+                                        {isProcessing ? "Processing..." : "Analyze Transcription"}
                                     </button>
                                     {file && (
                                         <span className="text-slate-300 text-sm truncate max-w-xs">
@@ -213,19 +193,15 @@ const VideoTranscript = () => {
                                 <div className="space-y-4">
                                     <textarea
                                         value={transcriptionText}
-                                        onChange={(e) =>
-                                            setTranscriptionText(e.target.value)
-                                        }
+                                        onChange={(e) => setTranscriptionText(e.target.value)}
                                         placeholder="Paste your transcription text here..."
-                                        className="w-full h-52 bg-slate-800 text-white p-4 rounded-xl border border-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                        className="w-full h-52 bg-white/5 text-slate-300 p-4 rounded-xl border border-white/10 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/20 transition-all"
                                     />
                                     <button
                                         onClick={handleGetTranscript}
-                                        className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-medium rounded-xl shadow-lg transition-all duration-200 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
+                                        className="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-slate-300 font-medium rounded-xl shadow-lg shadow-blue-500/20 transition-all duration-200 hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-[0.98]"
                                     >
-                                        {isProcessing
-                                            ? "Processing..."
-                                            : "Analyze Transcription"}
+                                        {isProcessing ? "Processing..." : "Analyze Transcription"}
                                     </button>
                                 </div>
                             )}
@@ -234,32 +210,29 @@ const VideoTranscript = () => {
                                     <video
                                         src={videoUrl}
                                         controls
-                                        className="w-full max-h-[300px] rounded-xl bg-slate-800/50"
+                                        className="w-full max-h-[300px] rounded-xl bg-white/5"
                                     />
                                 </div>
                             )}
                         </div>
 
-                        <div className="bg-slate-700/30 p-6 rounded-2xl border border-slate-600/50">
-                            <h3 className="text-lg font-medium text-slate-200 mb-4">
+                        <div className="bg-slate-900/50 p-6 rounded-2xl border border-white/10 hover:border-blue-500/20 transition-colors">
+                            <h3 className="text-lg font-medium text-blue-300 mb-4">
                                 Analysis Results
                             </h3>
-                            <div className="bg-slate-800/50 p-5 rounded-xl border border-slate-600/50 min-h-[200px] max-h-[400px] overflow-y-auto">
+                            <div className="bg-white/5 p-5 rounded-xl border border-white/10 min-h-[200px] max-h-[400px] overflow-y-auto">
                                 {isProcessing ? (
                                     <div className="flex items-center justify-center h-[200px] text-blue-400">
-                                        <div className="animate-spin mr-2">
-                                            ⚡
-                                        </div>
+                                        <div className="animate-spin mr-2">⚡</div>
                                         Processing request...
                                     </div>
                                 ) : output ? (
-                                    <div className="text-slate-100">
+                                    <div className="text-slate-300">
                                         {formatOutput(output)}
                                     </div>
                                 ) : (
-                                    <div className="flex items-center justify-center h-[200px] text-slate-400 italic">
-                                        Click 'Analyze Transcription' to
-                                        analyze...
+                                    <div className="flex items-center justify-center h-[200px] text-blue-400/80 italic">
+                                        Click 'Analyze Transcription' to analyze...
                                     </div>
                                 )}
                             </div>
@@ -272,25 +245,27 @@ const VideoTranscript = () => {
 };
 
 const ToggleSwitch = ({ value, onChange }) => (
-    <div className="relative inline-flex bg-slate-800/50 p-1 rounded-xl border border-slate-700/50">
+    <div className="relative inline-flex bg-white/5 p-1 rounded-xl border border-white/10">
         <div
-            className="absolute inset-1 w-[calc(50%-4px)] bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg transition-transform duration-300 ease-out shadow-lg"
+            className="absolute inset-1 w-[calc(50%-4px)] bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg transition-transform duration-300 ease-out shadow-lg"
             style={{
                 transform: `translateX(${value === "text" ? "100%" : "0"})`,
             }}
         />
         <button
             onClick={() => onChange("video")}
-            className={`relative z-10 flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors duration-300 min-w-[140px] justify-center ${value === "video" ? "text-white" : "text-slate-400"
-                }`}
+            className={`relative z-10 flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors duration-300 min-w-[140px] justify-center ${
+                value === "video" ? "text-slate-300" : "text-slate-400"
+            }`}
         >
             <Video size={18} />
             Video
         </button>
         <button
             onClick={() => onChange("text")}
-            className={`relative z-10 flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors duration-300 min-w-[140px] justify-center ${value === "text" ? "text-white" : "text-slate-400"
-                }`}
+            className={`relative z-10 flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors duration-300 min-w-[140px] justify-center ${
+                value === "text" ? "text-slate-300" : "text-slate-400"
+            }`}
         >
             <FileText size={18} />
             Text

@@ -9,45 +9,51 @@ import ProtectedRoute from "./ProtectedRoute";
 import "react-toastify/dist/ReactToastify.css";
 import VideoTranscript from "./components/Pages/VideoTranscript";
 import ThumbnailAnalyzer from "./components/Pages/ThumbnailAnalyzer";
+import Layout from "./components/Pages/Layout";
 
 function App() {
     return (
         <Router>
             <Routes>
                 {/* Public Routes */}
-                <Route exact path="/" element={<Login />} />
-                <Route exact path="/signup" element={<Signup />} />
-                <Route exact path="/thumbnail" element={<ThumbnailAnalyzer/>}/>
+                <Route path="/" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
 
-                {/* Protected Routes */}
-                <Route
-                    exact
-                    path="/home"
-                    element={
-                        <ProtectedRoute>
-                            <Home />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    exact
-                    path="/analyzer"
-                    element={
-                        <ProtectedRoute>
-                            <Analyzer />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    exact
-                    path="/transcript"
-                    element={
-                        <ProtectedRoute>
-                            <VideoTranscript />
-                        </ProtectedRoute>
-                    }
-                />
-                
+                {/* Protected Routes with Layout */}
+                <Route element={<Layout />}>
+                    <Route
+                        path="/home"
+                        element={
+                            <ProtectedRoute>
+                                <Home />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/thumbnail"
+                        element={
+                            <ProtectedRoute>
+                                <ThumbnailAnalyzer />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/analyzer"
+                        element={
+                            <ProtectedRoute>
+                                <Analyzer />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/transcript"
+                        element={
+                            <ProtectedRoute>
+                                <VideoTranscript />
+                            </ProtectedRoute>
+                        }
+                    />
+                </Route>
             </Routes>
             <ToastContainer />
         </Router>
