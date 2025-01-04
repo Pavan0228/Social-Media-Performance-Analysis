@@ -65,7 +65,7 @@ export const uploadTranscript = asyncHandler(async (req, res) => {
         const transcribe = isVideoUpload
             ? await processVideo(req.file)
             : req.body.transcriptionText;
-        console.log(transcribe)
+        // console.log(transcribe)
         const langflowResponse = await processWithLangflow(transcribe);
         console.dir(langflowResponse, { depth: null });
         return res.status(200).send(langflowResponse);
