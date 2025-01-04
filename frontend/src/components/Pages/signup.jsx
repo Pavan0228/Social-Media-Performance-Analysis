@@ -42,7 +42,7 @@ const Signup = () => {
             Cookies.set("accessToken", accessToken, { expires: 1 });
 
             toast.success("Signup successful!", { position: "top-right" });
-            navigate("/home");
+            navigate("/analyzer");
         } catch (error) {
             toast.error(error.response?.data?.message || "Signup failed. Please try again.", {
                 position: "top-right",

@@ -20,17 +20,17 @@ const Layout = () => {
     const { isAuthenticated, logout } = useContext(AuthContext);
 
     const menuItems = [
-        {
-            title: "Thumbnail Analyzer",
-            icon: <Video size={20} />,
-            path: "/thumbnail",
-        },
+        { title: "Analyzer", icon: <BarChart3 size={20} />, path: "/analyzer" },
         {
             title: "Video Transcript",
             icon: <FileText size={20} />,
             path: "/transcript",
         },
-        { title: "Analyzer", icon: <BarChart3 size={20} />, path: "/analyzer" },
+        {
+            title: "Thumbnail Analyzer",
+            icon: <Video size={20} />,
+            path: "/thumbnail",
+        },
     ];
 
     return (

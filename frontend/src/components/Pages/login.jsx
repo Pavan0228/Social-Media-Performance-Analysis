@@ -31,7 +31,7 @@ const Login = () => {
             const { accessToken } = response.data;
             Cookies.set("accessToken", accessToken, { expires: 1 });
             toast.success("Login successful!", { position: "top-right" });
-            navigate("/home");
+            navigate("/analyzer");
         } catch (error) {
             toast.error(error.response?.data?.message || "Login failed. Please check your credentials.", {
                 position: "top-right",

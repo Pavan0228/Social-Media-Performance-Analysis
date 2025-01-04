@@ -21,14 +21,14 @@ function App() {
 
                 {/* Protected Routes with Layout */}
                 <Route element={<Layout />}>
-                    <Route
+                    {/* <Route
                         path="/home"
                         element={
                             <ProtectedRoute>
                                 <Home />
                             </ProtectedRoute>
                         }
-                    />
+                    /> */}
                     <Route
                         path="/thumbnail"
                         element={
