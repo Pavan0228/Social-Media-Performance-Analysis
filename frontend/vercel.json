@@ -10,5 +10,11 @@
 				"Access-Control-Allow-Headers": "Content-Type, Authorization"
 			}
 		}
+	],
+	"rewrites": [
+		{
+			"source": "/:path*",
+			"destination": "/index.html"
+		}
 	]
 }
