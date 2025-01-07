@@ -25,7 +25,7 @@ export const Analytics_API = asyncHandler(async (req, res) => {
     try {
         const { message } = req.body; // Assuming the message comes in request body
 
-        const apiUrl = 'https://api.langflow.astra.datastax.com/lf/95a48fd4-e2ec-4849-a8d3-979fcdec7e2e/api/v1/run/7c27ac3a-86ce-487c-b556-23fe15e4b3f9';
+        const apiUrl = 'https://api.langflow.astra.datastax.com/lf/9cac6bbf-56ea-4f04-8ae0-6362611e8a28/api/v1/run/50c8abcf-3304-4ea7-995a-a6ac6ff16237';
         
         const requestBody = {
             input_value: message,
