@@ -8,34 +8,50 @@ const Analyzer = () => {
 
   const formatOutput = (text) => {
     try {
-      const jsonData = typeof text === 'string' ? JSON.parse(text) : text;
-      
-      if (jsonData.postType) {
-        const insights = Array.isArray(jsonData.comparativeInsights)
-          ? jsonData.comparativeInsights.map(item => item.insight)
-          : Object.values(jsonData.comparativeInsights);
+      if (!text) return null;
 
-        const formattedText = [
-          `Content Type: ${jsonData.postType}`,
-          '',
-          'Performance Metrics:',
-          ...Object.entries(jsonData.predictedPerformance)
-            .map(([key, value]) => `${key}: ${typeof value === 'number' ? value.toFixed(2) : value}`),
-          '',
-          'Insights:',
-          ...insights.map(insight => `• ${insight}`)
-        ].join('\n');
+      // Split the text into sections and format each line
+      const formattedText = text.toString().split('\n').map(line => {
+        if (!line) return null;
 
-        return (
-          <div className="bg-white/5 rounded-xl p-4 hover:bg-white/10 transition-all duration-300">
-            <pre className="text-slate-300 whitespace-pre-wrap font-sans">{formattedText}</pre>
-          </div>
-        );
-      }
-      
-      return formatTextOutput(text);
-    } catch (e) {
-      return formatTextOutput(text);
+        if (line.startsWith('-')) {
+          // First split by colon to separate post type
+          const parts = line.substring(2).split(':');
+          if (parts.length < 2) return null;
+
+          const [fullPostType, metricsText] = parts;
+          // Then split metrics by comma
+          const metrics = metricsText.split(',');
+          
+          return (
+            <div className="mb-4">
+              <span className="text-blue-400">{fullPostType.trim()}:</span>
+              {metrics.map((metric, index) => (
+                <div key={index} className="ml-6 text-white">
+                  {metric.trim()}
+                </div>
+              ))}
+            </div>
+          );
+        } else if (line.trim()) {
+          // Return non-empty lines that don't start with '-'
+          return <div className="text-white mb-4">{line.trim()}</div>;
+        }
+        return null;
+      });
+
+      return (
+        <div className="space-y-2">
+          {formattedText}
+        </div>
+      );
+    } catch (error) {
+      console.error('Format Error:', error);
+      return (
+        <div className="text-red-400">
+          Error formatting output: {error.message}
+        </div>
+      );
     }
   };
 
