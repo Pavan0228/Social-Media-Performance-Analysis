@@ -15,20 +15,43 @@ const Analyzer = () => {
           ? jsonData.comparativeInsights.map(item => item.insight)
           : Object.values(jsonData.comparativeInsights);
 
-        const formattedText = [
-          `Content Type: ${jsonData.postType}`,
-          '',
-          'Performance Metrics:',
-          ...Object.entries(jsonData.predictedPerformance)
-            .map(([key, value]) => `${key}: ${typeof value === 'number' ? value.toFixed(2) : value}`),
-          '',
-          'Insights:',
-          ...insights.map(insight => `• ${insight}`)
-        ].join('\n');
-
         return (
-          <div className="bg-white/5 rounded-xl p-4 hover:bg-white/10 transition-all duration-300">
-            <pre className="text-slate-300 whitespace-pre-wrap font-sans">{formattedText}</pre>
+          <div className="space-y-6 bg-white/5 rounded-xl p-6 hover:bg-white/10 transition-all duration-300">
+            {/* Content Type Section */}
+            <div className="border-b border-white/10 pb-4">
+              <h4 className="text-blue-400 font-medium mb-2">Content Type</h4>
+              <p className="text-slate-300">{jsonData.postType}</p>
+            </div>
+
+            {/* Performance Metrics Section */}
+            <div className="border-b border-white/10 pb-4">
+              <h4 className="text-blue-400 font-medium mb-3">Performance Metrics</h4>
+              <div className="grid grid-cols-2 gap-4">
+                {Object.entries(jsonData.predictedPerformance).map(([key, value]) => (
+                  <div key={key} className="bg-white/5 p-3 rounded-lg">
+                    <p className="text-slate-400 text-sm mb-1">{key}</p>
+                    <p className="text-slate-200 font-medium">
+                      {typeof value === 'number' ? value.toFixed(2) : value}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Insights Section */}
+            <div>
+              <h4 className="text-blue-400 font-medium mb-3">Insights</h4>
+              <div className="space-y-2">
+                {insights.map((insight, index) => (
+                  <div 
+                    key={index} 
+                    className="bg-white/5 p-3 rounded-lg hover:bg-white/10 transition-all duration-200"
+                  >
+                    {insight}
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         );
       }
@@ -40,9 +63,18 @@ const Analyzer = () => {
   };
 
   const formatTextOutput = (text) => {
+    // Split text by periods and filter out empty strings
+    const sentences = text.split('.').filter(sentence => sentence.trim().length > 0);
+    
     return (
       <div className="bg-white/5 rounded-xl p-4 hover:bg-white/10 transition-all duration-300">
-        <p className="text-slate-300">{text}</p>
+        <div className="space-y-2">
+          {sentences.map((sentence, index) => (
+            <p key={index} className="text-slate-300 py-1 px-2 hover:bg-white/5 rounded transition-all">
+              {sentence.trim()}.
+            </p>
+          ))}
+        </div>
       </div>
     );
   };
