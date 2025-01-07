@@ -10,39 +10,39 @@ const Analyzer = () => {
     try {
       if (!text) return null;
 
-      // Split the text into sections and format each line
-      const formattedText = text.toString().split('\n').map(line => {
-        if (!line) return null;
-
-        if (line.startsWith('-')) {
-          // First split by colon to separate post type
-          const parts = line.substring(2).split(':');
-          if (parts.length < 2) return null;
-
-          const [fullPostType, metricsText] = parts;
-          // Then split metrics by comma
-          const metrics = metricsText.split(',');
-          
-          return (
-            <div className="mb-4">
-              <span className="text-blue-400">{fullPostType.trim()}:</span>
-              {metrics.map((metric, index) => (
-                <div key={index} className="ml-6 text-white">
-                  {metric.trim()}
-                </div>
-              ))}
-            </div>
-          );
-        } else if (line.trim()) {
-          // Return non-empty lines that don't start with '-'
-          return <div className="text-white mb-4">{line.trim()}</div>;
-        }
-        return null;
-      });
+      // Split by newlines and filter out empty lines
+      const lines = text.toString().split('\n').filter(line => line.trim());
 
       return (
         <div className="space-y-2">
-          {formattedText}
+          {lines.map((line, index) => {
+            // For lines starting with a dash (bullet points)
+            if (line.startsWith('-')) {
+              return (
+                <div key={index} className="ml-4 text-white">
+                  • {line.substring(2).trim()}
+                </div>
+              );
+            }
+            // For lines with colons (key-value pairs or titles)
+            else if (line.includes(':')) {
+              const [title, content] = line.split(':');
+              return (
+                <div key={index} className="mb-2">
+                  <span className="text-blue-400">{title.trim()}:</span>
+                  <span className="text-white">{content?.trim()}</span>
+                </div>
+              );
+            }
+            // For all other lines
+            else {
+              return (
+                <div key={index} className="text-white">
+                  {line.trim()}
+                </div>
+              );
+            }
+          })}
         </div>
       );
     } catch (error) {
