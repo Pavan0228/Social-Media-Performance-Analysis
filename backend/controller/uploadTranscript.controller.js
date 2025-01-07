@@ -8,7 +8,7 @@ import axios from "axios";
 const ALLOWED_VIDEO_TYPES = ["video/mp4", "video/mpeg", "video/quicktime"];
 
 const LANGFLOW_API_URL =
-    "https://api.langflow.astra.datastax.com/lf/95a48fd4-e2ec-4849-a8d3-979fcdec7e2e/api/v1/run/de602d29-bd84-4761-80c0-091755d4292a";
+    "https://api.langflow.astra.datastax.com/lf/9cac6bbf-56ea-4f04-8ae0-6362611e8a28/api/v1/run/0fa2a2b6-c397-419a-b6cd-fedd8fb38805";
 const LANGFLOW_Transcibe_TOKEN = process.env.LANGFLOW_Transcibe_TOKEN;
 
 console.log(LANGFLOW_Transcibe_TOKEN);
