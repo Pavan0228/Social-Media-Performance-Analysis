@@ -56,9 +56,18 @@ const Analyzer = () => {
   };
 
   const formatTextOutput = (text) => {
+    // Split text by periods and filter out empty strings
+    const sentences = text.split('.').filter(sentence => sentence.trim().length > 0);
+    
     return (
       <div className="bg-white/5 rounded-xl p-4 hover:bg-white/10 transition-all duration-300">
-        <p className="text-slate-300">{text}</p>
+        <div className="space-y-2">
+          {sentences.map((sentence, index) => (
+            <p key={index} className="text-slate-300 py-1 px-2 hover:bg-white/5 rounded transition-all">
+              {sentence.trim()}.
+            </p>
+          ))}
+        </div>
       </div>
     );
   };
