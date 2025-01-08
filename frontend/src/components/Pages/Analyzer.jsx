@@ -8,66 +8,41 @@ const Analyzer = () => {
 
   const formatOutput = (text) => {
     try {
-      if (!text) return null;
+      const jsonData = typeof text === 'string' ? JSON.parse(text) : text;
+      
+      if (jsonData.postType) {
+        const insights = Array.isArray(jsonData.comparativeInsights)
+          ? jsonData.comparativeInsights.map(item => item.insight)
+          : Object.values(jsonData.comparativeInsights);
 
-      // Split by newlines and filter out empty lines
-      const lines = text.toString().split('\n').filter(line => line.trim());
+        const formattedText = [
+          `Content Type: ${jsonData.postType}`,
+          '',
+          'Performance Metrics:',
+          ...Object.entries(jsonData.predictedPerformance)
+            .map(([key, value]) => `${key}: ${typeof value === 'number' ? value.toFixed(2) : value}`),
+          '',
+          'Insights:',
+          ...insights.map(insight => `• ${insight}`)
+        ].join('\n');
 
-      return (
-        <div className="space-y-2">
-          {lines.map((line, index) => {
-            // For lines starting with a dash (bullet points)
-            if (line.startsWith('-')) {
-              return (
-                <div key={index} className="ml-4 text-white">
-                  • {line.substring(2).trim()}
-                </div>
-              );
-            }
-            // For lines with colons (key-value pairs or titles)
-            else if (line.includes(':')) {
-              const [title, content] = line.split(':');
-              return (
-                <div key={index} className="mb-2">
-                  <span className="text-blue-400">{title.trim()}:</span>
-                  <span className="text-white">{content?.trim()}</span>
-                </div>
-              );
-            }
-            // For all other lines
-            else {
-              return (
-                <div key={index} className="text-white">
-                  {line.trim()}
-                </div>
-              );
-            }
-          })}
-        </div>
-      );
-    } catch (error) {
-      console.error('Format Error:', error);
-      return (
-        <div className="text-red-400">
-          Error formatting output: {error.message}
-        </div>
-      );
+        return (
+          <div className="bg-white/5 rounded-xl p-4 hover:bg-white/10 transition-all duration-300">
+            <pre className="text-slate-300 whitespace-pre-wrap font-sans">{formattedText}</pre>
+          </div>
+        );
+      }
+      
+      return formatTextOutput(text);
+    } catch (e) {
+      return formatTextOutput(text);
     }
   };
 
   const formatTextOutput = (text) => {
-    // Split text by periods and filter out empty strings
-    const sentences = text.split('.').filter(sentence => sentence.trim().length > 0);
-    
     return (
       <div className="bg-white/5 rounded-xl p-4 hover:bg-white/10 transition-all duration-300">
-        <div className="space-y-2">
-          {sentences.map((sentence, index) => (
-            <p key={index} className="text-slate-300 py-1 px-2 hover:bg-white/5 rounded transition-all">
-              {sentence.trim()}.
-            </p>
-          ))}
-        </div>
+        <p className="text-slate-300">{text}</p>
       </div>
     );
   };
