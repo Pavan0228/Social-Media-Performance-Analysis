@@ -16,8 +16,8 @@ const Login = () => {
         </div>
     );
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("pavan@test.com");
+    const [password, setPassword] = useState("123456");
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
